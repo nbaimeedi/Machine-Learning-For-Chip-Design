@@ -1,0 +1,17 @@
+#read  -verific
+read_verilog ../example/verilog/Uart/uart.v
+read_verilog ../example/verilog/Uart/uart_rx.v
+read_verilog ../example/verilog/Uart/uart_tx.v
+
+# elaborate design hierarchy
+hierarchy -check -top uart
+
+
+# the high-level stuff
+proc; 
+flatten; 
+opt; fsm; opt; memory; opt;
+
+# mapping to internal cell library
+techmap; opt;
+write_verilog ../example/verilog/Uart/Uart_sog.v

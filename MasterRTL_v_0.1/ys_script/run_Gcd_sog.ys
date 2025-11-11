@@ -1,0 +1,15 @@
+#read  -verific
+read_verilog ../example/verilog/Gcd/gcd.v
+
+# elaborate design hierarchy
+hierarchy -check -top gcd
+
+
+# the high-level stuff
+proc; 
+flatten; 
+opt; fsm; opt; memory; opt;
+
+# mapping to internal cell library
+techmap; opt;
+write_verilog ../example/verilog/Gcd/Gcd_sog.v

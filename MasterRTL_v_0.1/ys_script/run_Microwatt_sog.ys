@@ -1,0 +1,30 @@
+#read  -verific
+read_verilog ../example/verilog/Microwatt/microwatt.v
+read_verilog ../example/verilog/Microwatt/raminfr.v
+read_verilog ../example/verilog/Microwatt/simplebus_host.v
+read_verilog ../example/verilog/Microwatt/tap_top.v
+read_verilog ../example/verilog/Microwatt/uart_defines.v
+read_verilog ../example/verilog/Microwatt/uart_receiver.v
+read_verilog ../example/verilog/Microwatt/uart_regs.v
+read_verilog ../example/verilog/Microwatt/uart_rfifo.v
+read_verilog ../example/verilog/Microwatt/uart_sync_flops.v
+read_verilog ../example/verilog/Microwatt/uart_tfifo.v
+read_verilog ../example/verilog/Microwatt/uart_top.v
+read_verilog ../example/verilog/Microwatt/uart_transmitter.v
+read_verilog ../example/verilog/Microwatt/uart_wb.v
+read_verilog ../example/verilog/Microwatt/IPs/Microwatt_FP_DFFRFile.v
+read_verilog ../example/verilog/Microwatt/IPs/RAM32_1RW1R.v
+read_verilog ../example/verilog/Microwatt/IPs/RAM512.v
+read_verilog ../example/verilog/Microwatt/IPs/multiply_add_64x64.v
+# elaborate design hierarchy
+hierarchy -check -top microwatt
+
+
+# the high-level stuff
+proc; 
+flatten; 
+opt; fsm; opt; memory; opt;
+
+# mapping to internal cell library
+techmap; opt;
+write_verilog ../example/verilog/Microwatt/Microwatt_sog.v

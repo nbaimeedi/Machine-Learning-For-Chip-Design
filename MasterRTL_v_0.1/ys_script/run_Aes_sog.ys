@@ -1,0 +1,21 @@
+#read  -verific
+read_verilog ../example/verilog/Aes/aes_cipher_top.v
+read_verilog ../example/verilog/Aes/aes_inv_cipher_top.v
+read_verilog ../example/verilog/Aes/aes_inv_sbox.v
+read_verilog ../example/verilog/Aes/aes_key_expand_128.v
+read_verilog ../example/verilog/Aes/aes_rcon.v
+read_verilog ../example/verilog/Aes/aes_sbox.v
+read_verilog ../example/verilog/Aes/timescale.v
+
+# elaborate design hierarchy
+hierarchy -check -top aes_cipher_top
+
+
+# the high-level stuff
+proc; 
+flatten; 
+opt; fsm; opt; memory; opt;
+
+# mapping to internal cell library
+techmap; opt;
+write_verilog ../example/verilog/Aes/Aes_sog.v

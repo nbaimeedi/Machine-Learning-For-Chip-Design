@@ -1,0 +1,38 @@
+#read  -verific
+read_verilog ../example/verilog/Riscv/adder.v
+read_verilog ../example/verilog/Riscv/alu.v
+read_verilog ../example/verilog/Riscv/aludec.v
+read_verilog ../example/verilog/Riscv/controller.v
+read_verilog ../example/verilog/Riscv/datapath.v
+read_verilog ../example/verilog/Riscv/dmem.v
+read_verilog ../example/verilog/Riscv/flopenr.v
+read_verilog ../example/verilog/Riscv/flopens.v
+read_verilog ../example/verilog/Riscv/flopr.v
+read_verilog ../example/verilog/Riscv/magcompare2b.v
+read_verilog ../example/verilog/Riscv/magcompare2c.v
+read_verilog ../example/verilog/Riscv/magcompare32.v
+read_verilog ../example/verilog/Riscv/maindec.v
+read_verilog ../example/verilog/Riscv/mux2.v
+read_verilog ../example/verilog/Riscv/mux3.v
+read_verilog ../example/verilog/Riscv/mux4.v
+read_verilog ../example/verilog/Riscv/mux5.v
+read_verilog ../example/verilog/Riscv/mux8.v
+read_verilog ../example/verilog/Riscv/regfile.v
+read_verilog ../example/verilog/Riscv/riscv.v
+read_verilog ../example/verilog/Riscv/rom.v
+read_verilog ../example/verilog/Riscv/shifter.v
+read_verilog ../example/verilog/Riscv/signext.v
+read_verilog ../example/verilog/Riscv/top.v
+
+# elaborate design hierarchy
+hierarchy -check -top riscv_top
+
+
+# the high-level stuff
+proc; 
+flatten; 
+opt; fsm; opt; memory; opt;
+
+# mapping to internal cell library
+techmap; opt;
+write_verilog ../example/verilog/Riscv/Riscv_sog.v
